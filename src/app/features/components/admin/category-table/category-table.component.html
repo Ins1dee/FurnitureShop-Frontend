@@ -1,0 +1,82 @@
+<div class="list-group" style="max-width: 500px; margin-left: 0px; margin-top: 10px;">
+    @for(category of categories; track category.id)
+    {
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ category.name }}</span>
+            <div>
+                <button class="btn btn-outline-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateCategoryModal" (click)="openCategoryModal(category)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button style="margin-left: 10px;" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" (click)="openCategoryModal(category)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+            </div>
+          </div>
+    }
+    <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+        Add New Category
+    </button>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete category</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this category?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCategory(selectedCategory)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Modal -->
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update category</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="updatedCategoryName" class="form-label">New category name:</label>
+                <input type="text" class="form-control" id="updatedCategoryName" [(ngModel)]="updatedCategoryName" name="updatedCategoryName" required>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateCategory(selectedCategory)">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Add Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add category</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="updatedCategoryName" class="form-label">Category name:</label>
+                <input type="text" class="form-control" id="updatedCategoryName" [(ngModel)]="updatedCategoryName" name="updatedCategoryName" required>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addCategory()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>

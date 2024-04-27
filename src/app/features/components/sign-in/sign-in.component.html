@@ -1,0 +1,46 @@
+
+    <div class="card" style="height: 100%;">
+        <div class="card-body">
+            <div class="form-signin">
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                  
+                    <div class="form-floating mb-2">
+                        <input type="email" class="form-control" id="floatingInput" formControlName="email">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    @if(form.get('email')?.hasError('required') && form.get('email')?.touched){
+                        <div class="text-danger mb-3">
+                            Email is required
+                        </div>
+                    }
+                    @if(form.get('email')?.hasError('email') && form.get('email')?.touched){
+                        <div class="text-danger mb-3">
+                            Invalid email address
+                        </div>
+                    }
+                    
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" formControlName="password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    @if(form.get('password')?.hasError('required') && form.get('password')?.touched){
+                        <div class="text-danger mb-3">
+                            Password is required
+                        </div>
+                    }
+
+                    <div class="form-check text-start my-3 mb-3">
+                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                    @if (errorMessage) {
+                        <div class="text-danger mb-5">{{ errorMessage }}</div>
+                    }
+                </form>
+            </div>   
+        </div>
+    </div> 

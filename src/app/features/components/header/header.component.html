@@ -1,0 +1,170 @@
+<header class="header-container p-3 text-bg-dark fixed-top">
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      @if(isAuthorized())
+      {
+        <li><a appHighlight href="/products" class="nav-link px-2 text-white">Products</a></li>
+        <li><a appHighlight href="/orders" class="nav-link px-2 text-white">Orders</a></li>
+        <li><a appHighlight href="/deliveries" class="nav-link px-2 text-white">Deliveries</a></li>
+        <li><a appHighlight href="/statistic" class="nav-link px-2 text-white">Statistic</a></li>
+      }
+      @else
+      {
+        <li><a data-bs-toggle="modal" data-bs-target="#loginModal" class="nav-link px-2 text-white">Welcome! Please, log-in to continue</a></li>
+      }
+    </ul>
+
+        @if(isAuthorized())
+        {
+          <h6 style="margin-right: 20px; margin-top: 8px;">Authorized</h6>
+        }
+        @else{
+          <button type="button" class="login-btn btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Log-in</button>
+        }
+
+        @if(isAuthorizedAsAdmin())
+        {
+          <button type="button" #registerButton data-bs-toggle="modal" data-bs-target="#registerModal" class="btn btn-info">Register new member</button>
+        }
+  </div>
+  </header>
+
+  <!-- Login modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Log-in</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex align-items-center">
+                <div class="col-6">
+                  <app-sign-in></app-sign-in>
+                </div>
+                <div class="col-6">
+                    <img src="assets/images/login_image.jpg" alt="Logo" class="img-fluid" />
+                </div>
+              </div>     
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Sign-up</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex align-items-center">
+                <div class="col-6">
+                    <img src="assets/images/register_image.jpg" alt="Logo" class="img-fluid" />
+                </div>
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="form-register w-100 m-auto">
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" id="floatingInput1" formControlName="firstname">
+                                    <label for="floatingInput">Firstname</label>
+                                </div>
+                                @if(form.get('firstname')?.hasError('required') && form.get('firstname')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Firstname is required
+                                    </div>
+                                }
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" id="floatingInput2" formControlName="lastname">
+                                    <label for="floatingInput">Lastname</label>
+                                </div>
+                                @if(form.get('lastname')?.hasError('required') && form.get('lastname')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Lastname is required
+                                    </div>
+                                }
+                                <div class="form-floating mb-2">
+                                    <input type="email" class="form-control" id="floatingInput3" formControlName="email">
+                                    <label for="floatingInput">Email address</label>
+                                </div>
+                                @if(form.get('email')?.hasError('required') && form.get('email')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Email is required
+                                    </div>
+                                }
+                                @if(form.get('email')?.hasError('email') && form.get('email')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Invalid email address
+                                    </div>
+                                }
+                                
+                                <div class="form-floating mb-2">
+                                    <input type="password" class="form-control" id="floatingPassword" formControlName="password">
+                                    <label for="floatingPassword">Password</label>
+                                </div>
+                                @if(form.get('password')?.hasError('required') && form.get('password')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Password is required
+                                    </div>
+                                }
+                                
+                                <div class="form-floating">
+                                  <select class="form-control" id="role" formControlName="role">
+                                      <option value="Administrator">Administrator</option>
+                                      <option value="Seller">Seller</option>
+                                      <option value="Delivery">Delivery</option>
+                                  </select>
+                                  <label for="role">Role</label>
+                                </div>
+                                @if(form.get('role')?.hasError('required') && form.get('role')?.touched){
+                                    <div class="text-danger mb-3">
+                                        Role is required
+                                    </div>
+                                }
+                                <button style="margin-top: 15px;" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#confirmationModal" type="submit" [disabled]="!form.valid">Register</button>
+                                @if (errorMessage) {
+                                    <div class="text-danger mb-5">{{ errorMessage }}</div>
+                                }
+                            </form>
+                        </div>   
+                    </div>
+                </div>
+                </div>
+            </div>     
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm registration</h1>
+      </div>
+      <div class="modal-body">
+        Confirmation code has been sent to your email. Enter it here:
+        <div class="confirmation-code">
+          <input type="text" maxlength="1" [(ngModel)]="digit1" name="digit1">
+          <input type="text" maxlength="1" [(ngModel)]="digit2" name="digit2">
+          <input type="text" maxlength="1" [(ngModel)]="digit3" name="digit3">
+          <input type="text" maxlength="1" [(ngModel)]="digit4" name="digit4">
+          <input type="text" maxlength="1" [(ngModel)]="digit5" name="digit5">
+          <input type="text" maxlength="1" [(ngModel)]="digit6" name="digit6">
+        </div>
+        @if (errorMessage) {
+          <div class="text-danger mb-5">{{ errorMessage }}</div>
+          }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!allDigitsEntered()" (click)="confirm()">Enter</button>
+      </div>
+    </div>
+  </div>
+</div>

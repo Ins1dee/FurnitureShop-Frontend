@@ -1,0 +1,11 @@
+<div id="divChart">
+  <canvas style="width: 90%" id="myChart"></canvas>
+</div>
+
+<div>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="2023" [(ngModel)]="year" id="yearInput">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" (click)="sendYear()">Send</button>
+    </div>
+</div>

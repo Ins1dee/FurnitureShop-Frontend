@@ -1,0 +1,17 @@
+.main-container {
+  display: flex;
+  margin: 0 0 0 0;
+  width: 98%;
+}
+
+.delivery-table-container {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 70%;
+}
+
+.user-deliveries-container {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 30%;
+}

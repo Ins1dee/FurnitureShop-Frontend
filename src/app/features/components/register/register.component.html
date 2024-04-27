@@ -1,0 +1,98 @@
+
+    <div class="card">
+        <div class="card-body">
+            <div class="form-register w-100 m-auto">
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                    
+                    <div class="form-floating mb-2">
+                        <input class="form-control" id="floatingInput1" formControlName="firstname">
+                        <label for="floatingInput">Firstname</label>
+                    </div>
+                    @if(form.get('firstname')?.hasError('required') && form.get('firstname')?.touched){
+                        <div class="text-danger mb-3">
+                            Firstname is required
+                        </div>
+                    }
+                    <div class="form-floating mb-2">
+                        <input class="form-control" id="floatingInput2" formControlName="lastname">
+                        <label for="floatingInput">Lastname</label>
+                    </div>
+                    @if(form.get('lastname')?.hasError('required') && form.get('lastname')?.touched){
+                        <div class="text-danger mb-3">
+                            Lastname is required
+                        </div>
+                    }
+                    <div class="form-floating mb-2">
+                        <input type="email" class="form-control" id="floatingInput3" formControlName="email">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    @if(form.get('email')?.hasError('required') && form.get('email')?.touched){
+                        <div class="text-danger mb-3">
+                            Email is required
+                        </div>
+                    }
+                    @if(form.get('email')?.hasError('email') && form.get('email')?.touched){
+                        <div class="text-danger mb-3">
+                            Invalid email address
+                        </div>
+                    }
+                    
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" formControlName="password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    @if(form.get('password')?.hasError('required') && form.get('password')?.touched){
+                        <div class="text-danger mb-3">
+                            Password is required
+                        </div>
+                    }
+                    <div class="form-floating">
+                        <select class="form-control" id="role" formControlName="role">
+                            <option value="value1">Administrator</option>
+                            <option value="value2">Seller</option>
+                            <option value="value3">Delivery</option>
+                        </select>
+                        <label for="role">Role</label>
+                    </div>
+                    @if(form.get('role')?.hasError('required') && form.get('role')?.touched){
+                        <div class="text-danger mb-3">
+                            Role is required
+                        </div>
+                    }
+                    
+                    <button style="margin-top: 15px;" class="btn btn-primary w-100 py-2" data-bs-toggle="modal" data-bs-target="#confirmationModal" type="submit" [disabled]="!form.valid">Register</button>
+                    @if (errorMessage) {
+                        <div class="text-danger mb-5">{{ errorMessage }}</div>
+                    }
+                </form>
+            </div>   
+        </div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm registration</h1>
+        </div>
+        <div class="modal-body">
+          Confirmation code has been sent to your email. Enter it here:
+          <div class="confirmation-code">
+            <input type="text" maxlength="1" [(ngModel)]="digit1" name="digit1">
+            <input type="text" maxlength="1" [(ngModel)]="digit2" name="digit2">
+            <input type="text" maxlength="1" [(ngModel)]="digit3" name="digit3">
+            <input type="text" maxlength="1" [(ngModel)]="digit4" name="digit4">
+            <input type="text" maxlength="1" [(ngModel)]="digit5" name="digit5">
+            <input type="text" maxlength="1" [(ngModel)]="digit6" name="digit6">
+          </div>
+          @if (errorMessage) {
+            <div class="text-danger mb-5">{{ errorMessage }}</div>
+            }
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" [disabled]="!allDigitsEntered()" (click)="confirm()">Enter</button>
+        </div>
+      </div>
+    </div>
+  </div>

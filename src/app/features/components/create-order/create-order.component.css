@@ -1,0 +1,18 @@
+.main-content-container {
+  display: flex;
+}
+
+.content-row {
+  display: flex;
+  column-gap: 30px;
+}
+
+.total-amount {
+  margin-left: 420px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.empty-table tr {
+  border: 1px solid #000;
+}

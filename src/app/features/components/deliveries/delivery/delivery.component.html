@@ -1,0 +1,19 @@
+<div class="main-container">
+ 
+  @if(isAuthrizedAsDelivery()) {
+    <div class="delivery-table-container">
+      <h3>All deliveries</h3>
+      <app-deliveries-table></app-deliveries-table>
+    </div>
+    <div class="user-deliveries-container">
+      <h3>My deliveries</h3>
+      <app-user-deliveries-table></app-user-deliveries-table>
+    </div>
+  }
+  @else {
+    <div class="delivery-table-container" style="width: 100%;">
+      <h3>All deliveries</h3>
+      <app-deliveries-table></app-deliveries-table>
+    </div>
+  }
+</div>
